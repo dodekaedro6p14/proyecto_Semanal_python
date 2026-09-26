@@ -1,0 +1,15 @@
+## Martes 17/05
+
+import bpy
+
+## uv = esferas / acd = acendentes / 
+
+uv = 0 
+acd = -4
+while uv < 5:
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, enter_editmode=False, align='WORLD', 
+    location=(0, 0, acd), scale=(1, 1, 1))
+    uv = uv + 1
+    acd = acd + 2
+
+

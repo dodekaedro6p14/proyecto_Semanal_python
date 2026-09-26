@@ -1,0 +1,66 @@
+# Jean Joubert 14 April 2020
+# Simple rotation of 3d pyramid
+import turtle
+from math import sin,cos
+
+win = turtle.Screen()
+win.setup(600,600)
+win.bgcolor('black')
+win.tracer(0)
+counter = 0
+
+def rotate(x,y,r):
+    s,c = sin(r), cos(r)
+    return x*c-y*s, x*s+y*c
+ 
+class Cube:
+    VERTICES = (0,3,0),(-1,0,1),(1,0,1),(1,0,-1),(-1,0,-1)
+    EDGES = (0,1),(0,2),(0,3),(0,4),(1,2),(2,3),(3,4),(4,1)
+
+    def __init__(self):
+        self.counter = 0
+        self.t = turtle.Turtle()
+        self.p = turtle.Turtle()
+        self.t.ht()
+        self.t.color('yellow')
+        self.p.color('cyan')
+        self.t.begin_fill()
+
+    def draw(self):
+
+        for edge in self.EDGES:
+            points = []
+            
+            for vertex in edge:
+                x,y,z = self.VERTICES[vertex]
+                x,z = rotate(x,z,self.counter)
+                y,z = rotate(y,z,self.counter)
+                x,y = rotate(x,y,self.counter)
+                
+                z += 5
+                if z != 0:
+                    f = 400/(z)
+               
+                sx, sy = x*f,y*f
+                points.append(sx)
+                points.append(sy)
+
+            self.t.up()
+            self.t.goto(points[0], points[1])
+            self.t.down()
+            self.t.goto(points[2], points[3])
+            self.t.up()
+            self.p.up(); self.p.goto(points[-1], points[0]); self.p.down()
+            self.p.dot(20, 'blue')
+#            self.t.pencolor('red')
+            self.p.circle(10, 360)
+#            self.t.clear()
+
+
+cube = Cube()
+while True:
+    cube.t.clear()
+    cube.p.clear()
+    cube.draw()
+    win.update()
+    cube.counter += 0.001 ## +=0.005 

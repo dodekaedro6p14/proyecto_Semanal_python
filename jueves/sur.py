@@ -1,0 +1,155 @@
+import pygame
+
+# COLORES
+WHITE = (255, 255, 255)
+BLACK = (  0,   0,   0)
+RED   = (255,   0,   0)
+CYAN  = (  0, 255, 255)
+VERDE = (  0, 255,   0)
+YELLO = (255, 255,   0)
+PURPLE= (128,   0, 128)
+ORANGE= (255, 165,   0)
+PINK  = (255,   0, 255)
+#DISEÑO DE LA VENTANA
+
+WIDTH, HEIGH = 1080, 720
+pygame.display.set_caption(" 4STR0S SUSURR05")
+SCREEN = pygame.display.set_mode((WIDTH, HEIGH))
+
+clock = pygame.time.Clock()
+
+# DESARROLLO DEL JUEGO
+while True:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                exit()
+
+    SCREEN.fill(BLACK)
+##################   PUNTOS COLOR CYAN     
+    c0 = ( 0, 375)
+    c1 = (100,300)
+    c2 = (200,400)
+    c3 = (300,300)
+    c4 = (400,500)
+    c5 = (500,200)
+    c6 = (600,500)
+    c7 = (700,300)
+    c8 = (800,400)
+    c9 = (900,300)
+    c10= (1080,375)
+##################   PUNTOS COLOR RED
+    r0 = (0, 375)
+    r1 = (100,425)
+    r2 = (200,325)
+    r3 = (300,425)
+    r4 = (400,325)
+    r5 = (500,425)
+    r6 = (600,325)
+    r7 = (700,425)
+    r8 = (800,325)
+    r9 = (900,425)
+    r10= (1080,375)
+##################   PUNTOS YELLOW
+    y0 = (0, 375) 
+    y1 = (100,385)
+    y2 = (200,365)
+    y3 = (300,385)
+    y4 = (400,365)
+    y5 = (500,385)
+    y6 = (600,365)
+    y7 = (700,385)
+    y8 = (800,365)
+    y9 = (900,385)
+    y10= (1080,375)
+##################   PUNTOS ORANGE
+    O0 = (0, 375) 
+    O1 = (100,365)
+    O2 = (200,385)
+    O3 = (300,365)
+    O4 = (400,385)
+    O5 = (500,365)
+    O6 = (600,385)
+    O7 = (700,365)
+    O8 = (800,385)
+    O9 = (900,365)
+    O10= (1080,375)
+##################   PUNTO VERDE
+    V0 = (0, 375) 
+    V1 = (100,400)
+    V2 = (200,310)
+    V3 = (300,400)
+    V4 = (400,310)
+    V5 = (500,500)
+    V6 = (600,310)
+    V7 = (700,400)
+    V8 = (800,310)
+    V9 = (900,400)
+    V10= (1080,375)
+
+
+#    pygame.draw.aaline(SCREEN, WHITE, p3, p4, blend = 1)
+
+    pygame.draw.line(SCREEN, CYAN, c0, c1, 5)
+    pygame.draw.line(SCREEN, CYAN, c1, c2, 5)
+    pygame.draw.line(SCREEN, CYAN, c2, c3, 5)
+    pygame.draw.line(SCREEN, CYAN, c3, c4, 5)
+    pygame.draw.line(SCREEN, CYAN, c4, c5, 5)
+    pygame.draw.line(SCREEN, CYAN, c5, c6, 5)
+    pygame.draw.line(SCREEN, CYAN, c6, c7, 5)
+    pygame.draw.line(SCREEN, CYAN, c7, c8, 5)
+    pygame.draw.line(SCREEN, CYAN, c8, c9, 5)
+    pygame.draw.line(SCREEN, CYAN, c9, c10,5)
+    
+    pygame.draw.line(SCREEN, RED, r0, r1, 1)
+    pygame.draw.line(SCREEN, RED, r1, r2, 1)
+    pygame.draw.line(SCREEN, RED, r2, r3, 1)
+    pygame.draw.line(SCREEN, RED, r3, r4, 1)
+    pygame.draw.line(SCREEN, RED, r4, r5, 1)
+    pygame.draw.line(SCREEN, RED, r5, r6, 1)
+    pygame.draw.line(SCREEN, RED, r6, r7, 1)
+    pygame.draw.line(SCREEN, RED, r7, r8, 1)
+    pygame.draw.line(SCREEN, RED, r8, r9, 1)
+    pygame.draw.line(SCREEN, RED, r9, r10, 1)
+ 	
+    pygame.draw.line(SCREEN, YELLO, y0, y1, 1)
+    pygame.draw.line(SCREEN, YELLO, y1, y2, 1)
+    pygame.draw.line(SCREEN, YELLO, y2, y3, 1)
+    pygame.draw.line(SCREEN, YELLO, y3, y4, 1)
+    pygame.draw.line(SCREEN, YELLO, y4, y5, 1)
+    pygame.draw.line(SCREEN, YELLO, y5, y6, 1)
+    pygame.draw.line(SCREEN, YELLO, y6, y7, 1)
+    pygame.draw.line(SCREEN, YELLO, y7, y8, 1)
+    pygame.draw.line(SCREEN, YELLO, y8, y9, 1)
+    pygame.draw.line(SCREEN, YELLO, y9, y10, 1)
+
+    pygame.draw.line(SCREEN, ORANGE, O0, O1, 1)
+    pygame.draw.line(SCREEN, ORANGE, O1, O2, 1)
+    pygame.draw.line(SCREEN, ORANGE, O2, O3, 1)
+    pygame.draw.line(SCREEN, ORANGE, O3, O4, 1)
+    pygame.draw.line(SCREEN, ORANGE, O4, O5, 1)
+    pygame.draw.line(SCREEN, ORANGE, O5, O6, 1)
+    pygame.draw.line(SCREEN, ORANGE, O6, O7, 1)
+    pygame.draw.line(SCREEN, ORANGE, O7, O8, 1)
+    pygame.draw.line(SCREEN, ORANGE, O8, O9, 1)
+    pygame.draw.line(SCREEN, ORANGE, O9, O10, 1)
+
+    pygame.draw.line(SCREEN, VERDE, V0, V1, 1)
+    pygame.draw.line(SCREEN, VERDE, V1, V2, 1)
+    pygame.draw.line(SCREEN, VERDE, V2, V3, 1)
+    pygame.draw.line(SCREEN, VERDE, V3, V4, 1)
+    pygame.draw.line(SCREEN, VERDE, V4, V5, 1)
+    pygame.draw.line(SCREEN, VERDE, V5, V6, 1)
+    pygame.draw.line(SCREEN, VERDE, V6, V7, 1)
+    pygame.draw.line(SCREEN, VERDE, V7, V8, 1)
+    pygame.draw.line(SCREEN, VERDE, V8, V9, 1)
+    pygame.draw.line(SCREEN, VERDE, V9, V10, 1)
+
+
+    pygame.display.update()
