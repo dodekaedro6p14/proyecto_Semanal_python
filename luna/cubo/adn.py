@@ -1,18 +1,13 @@
-import pygame
+import sys
+import pygame as pg
 import numpy as np
 from math import *
 
-# colores
-
-WHITE = (255, 255, 255)
-BLACK = (  0,   0,   0)
-RED   = (255,   0,   0)
-
 # DISEÑANDO LA VENTANA
-
 WIDTH, HEIGH = 1080, 720
-pygame. display.set_caption("A D N")
-SCREEN = pygame.display.set_mode((WIDTH, HEIGH))
+pg.init()
+pg.display.set_caption("A D N")
+SCREEN = pg.display.set_mode((WIDTH, HEIGH))
 
 ESCALA = 50
 CIRCLE_POS = (WIDTH/2, HEIGH/2)
@@ -20,22 +15,18 @@ ANGLE = 0
 
 
 # PUNTOS, de abajo hacia arriba
-punto = []
-punto.append(np.matrix([-1,-2, -1])) #1
-punto.append(np.matrix([1, -2, 1])) #1B
-
-punto.append(np.matrix([-1,-1, -1])) #2
-punto.append(np.matrix([1, -1, 1])) #2b
-
-punto.append(np.matrix([0,0, 0])) #3
-
-punto.append(np.matrix([-1,1, 1])) #4B
-punto.append(np.matrix([ 1, 1, -1]))
-
-punto.append(np.matrix([-1,2, 1]))#5
-punto.append(np.matrix([1,2,-1]))
-
-projection_matrix = np.matrix([
+punto = [
+    np.array([-1,-2, -1]), #1
+    np.array([1, -2, 1]), #1B
+    np.array([-1,-1, -1]), #2
+    np.array([1, -1, 1]), #2b
+    np.array([0, 0, 0]), #3
+    np.array([-1,1, 1]), #4B
+    np.array([ 1, 1, -1]),
+    np.array([-1,2, 1]),   #5
+    np.array([1,2,-1])
+]
+projection_matrix = np.array([
     [1, 0, 0],
     [0, 1, 0],
     [0, 0, 0]
@@ -43,51 +34,48 @@ projection_matrix = np.matrix([
     ])
 
 projected_points = [
-        [n ,n] for n in range(len(punto))
-        ]
+        [0, 0] for _ in range(len(punto))]
 
 def connect_points(i, j, punto):
-    pygame.draw.line(SCREEN, BLACK, (punto[i][0], punto[i][1]), (punto[j][0], punto[j][1]))
+    pg.draw.line(SCREEN, (0,0,0), (punto[i][0], punto[i][1]), (punto[j][0], punto[j][1]))
 
-clock = pygame.time.Clock()
+clock = pg.time.Clock()
 
 while True:
     clock.tick(120)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            sys.exit()
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                exit()
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_ESCAPE:
+                pg.quit()
+                sys.exit()
 
-    rotation_x = np.matrix([
+    rotation_y = np.array([
         [cos(ANGLE), 0, -sin(ANGLE)],
         [0, 1, 0],
         [-sin(ANGLE), 0, cos(ANGLE)]
         ])
 
-    ANGLE += 0.01
+    ANGLE += 0.02
 
-    SCREEN.fill(WHITE)
-    i = 0
+    SCREEN.fill(255,255,255)
     
-    for point in punto:
-
-        rotated2d = np.dot(rotation_x, point.reshape(3,1))
-
-        projected2d = np.dot(projection_matrix, rotated2d)
+    
+    for i, p in enumerate(punto):
+        rotated3d = rotation_y @ p
+        projected2d = projection_matrix @ rotated3d
 
         x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
         y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
 
         projected_points[i] = [x, y]
-        pygame.draw.circle(SCREEN, RED, (x, y), 10)
+        pg.draw.circle(SCREEN, (255,0,0), (x, y), 10)
         i += 1 
 
-    pygame.display.update()
+    pg.display.update()
 
     
 

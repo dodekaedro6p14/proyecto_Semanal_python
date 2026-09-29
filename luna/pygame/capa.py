@@ -4,7 +4,7 @@ import random
 pg.init()
 WIDTH, HEIGHT = 1080, 720
 pg.display.set_caption("F3N0M3N05 3N3RG1C05 D3L UN1V3R50")
-BG = pg.transform.scale(pg.image.load("ima/fondo_demo.jpg"), (WIDTH, HEIGHT))
+#BG = pg.transform.scale(pg.image.load("ima/fondo_demo.jpg"), (WIDTH, HEIGHT))
 WIN = pg.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 MOVE = 5

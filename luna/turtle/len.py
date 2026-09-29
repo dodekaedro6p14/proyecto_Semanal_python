@@ -30,7 +30,6 @@ class Cube:
     def __init__(self, xpos, ypos, axes, color):
         self.t = turtle.Turtle()
         self.t.ht()
-#        self.t.color('#FF1493')
         self.xpos = xpos
         self.ypos = ypos
         self.counter = counter
@@ -94,7 +93,6 @@ def move_out(self):
         if self.distance>50:
             self.distance-= 50
 
-#   Cube(x, y, axes, color)
 cube1 =  Cube(0,0, '3', '#FF0080')
 cube2 =  Cube(0,0, '3', '#FF00FF')
 cube3 =  Cube(0,0, '3', '#8000FF')
