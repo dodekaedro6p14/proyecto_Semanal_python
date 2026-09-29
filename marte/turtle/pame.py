@@ -1,13 +1,21 @@
 import turtle
 import datetime
 from math import sin,cos
+import sys
 
 win = turtle.Screen()
 win.setup(600,600)
 win.title("Demostracion pame.py")
 win.bgcolor('black') ##CCFF99
 win.tracer(0)
-counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -75,15 +83,17 @@ def circle():
 
 circle()
 cube = Cube()
-while True:
-    cube.t.clear()
-    cube.p.clear()
-    cube.date.clear()
-    cube.draw()
-    win.update()
-    cube.counter += 0.005 ## +=0.005 
-#    win.onkey(win.bye, 'ESC')
-    turtle.ht()
-if __name__ == '__menu__':
-    app = cube()
-    app.run()
+try:
+    while running:
+        cube.t.clear()
+        cube.p.clear()
+        cube.date.clear()
+
+        cube.draw()
+
+        win.update()
+        cube.counter += 0.005 ## +=0.005
+except turtle.Terminator:
+    pass
+sys.exit()
+    

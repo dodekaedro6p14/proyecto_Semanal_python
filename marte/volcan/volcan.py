@@ -4,7 +4,7 @@ pg.init()
 pg.mixer.init()
 WIDTH, HEIGHT= 1080, 720
 pg.display.set_caption("3RUPC10N VOLC4N1C4")
-BG = pg.transform.scale(pg.image.load("fondo_volcan.jpg"), (WIDTH, HEIGHT))
+#BG = pg.transform.scale(pg.image.load("fondo_volcan.jpg"), (WIDTH, HEIGHT))
 WIN = pg.display.set_mode((WIDTH, HEIGHT))
 FPS = 60    
 
@@ -17,7 +17,7 @@ def draw(objeto):
     pg.display.update()
 
 def fondo(self, objeto):
-    WIN.blit(BG, [0, 0])
+    WIN.fill((0,0,0))
 
 def main():
     run = True

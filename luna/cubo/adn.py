@@ -61,15 +61,15 @@ while True:
 
     ANGLE += 0.02
 
-    SCREEN.fill(255,255,255)
+    SCREEN.fill((255, 255, 255))
     
     
     for i, p in enumerate(punto):
         rotated3d = rotation_y @ p
         projected2d = projection_matrix @ rotated3d
 
-        x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-        y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+        x = int(projected2d[0] * ESCALA) + CIRCLE_POS[0]
+        y = int(projected2d[1] * ESCALA) + CIRCLE_POS[1]
 
         projected_points[i] = [x, y]
         pg.draw.circle(SCREEN, (255,0,0), (x, y), 10)
