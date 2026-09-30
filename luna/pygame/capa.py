@@ -9,7 +9,7 @@ WIN = pg.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 MOVE = 5
 def draw():   
-    WIN.blit(BG, [0, 0])
+    WIN.fill('black')
     pg.display.update()
 
 def main():

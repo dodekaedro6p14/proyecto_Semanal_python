@@ -1,3 +1,4 @@
+import sys
 import turtle
 import datetime
 from math import sin,cos
@@ -8,8 +9,14 @@ win.tracer(0)
 win.listen()
 win.title('Copo de nieve "nano_copo.py"')
 win.bgcolor('black')
-counter = 0
-#x = datetime.datetime.now()
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -75,21 +82,18 @@ class Cube:
             self.ball.dy *= -1
 
 cube = Cube()
-ran = True
-#win.onkey(ran=False, 'p')
-while ran:
-    cube.t.clear()
-    cube.m.clear()
-    cube.date.clear()
-    cube.draw()
-    win.update()
-    cube.counter += 0.005
-    cube.move_ball()
-    win.onkey(win.bye, 'p')
 
-if __name__ == '__menu__':
-      app = cube()
-      app.run()
+try:
+    while running:
+        cube.t.clear()
+        cube.m.clear()
+        cube.date.clear()
+        cube.draw()
+        win.update()
+        cube.counter += 0.005
+        cube.move_ball()
 
-
+except turtle.Terminator:
+    pass
+sys.exit()
  

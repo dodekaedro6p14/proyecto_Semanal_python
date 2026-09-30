@@ -1,3 +1,4 @@
+import sys
 import turtle
 from math import sin,cos
 
@@ -7,7 +8,15 @@ win.setup(800,800)
 win.tracer(0)
 win.listen()
 win.bgcolor('black')
-counter = 0
+
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -129,17 +138,18 @@ win.onkey(move_right, 'd')
 win.onkey(move_left, 'a')
 win.onkey(move_in, 'q')
 win.onkey(move_out, 'e')
-win.onkey(win.bye, 'p')   ## creando el boton para salir2 
 
-while True:
-    cube1.t.clear()
-    cube1.draw()
-#    cube2.t.clear()
-#   cube2.draw()
+try:
+    while running:
+        cube1.t.clear()
+        cube1.draw()
+        cube2.t.clear()
+        cube2.draw()
  
-    win.update()
-    cube1.counter -= 0.001
-#    cube2.counter += 0.020   
-    ##win.onkeyrelease(win.bye, 'p')## boton para salir
-if __name__ == "__main__":
-   Cube() 
+        win.update()
+        cube1.counter -= 0.001
+        cube2.counter += 0.020
+
+except turtle.Terminator:
+    pass
+sys.exit()

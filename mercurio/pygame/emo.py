@@ -69,8 +69,8 @@ def multiply_m(a, b):
 
     return product
 
-def connect_points(i, j, points):
-    pg.draw.line(WIN, ("white"), (points[i][0], points[i][1]), (points[j][0], points[j][1]))
+def connect_points(i, j, points_list):
+    pg.draw.line(WIN, ("white"), (points_list[i][0], points_list[i][1]), (points_list[j][0], points_list[j][1]))
 
 scale = 100
 angle_x = angle_y = angle_z = 0
@@ -90,33 +90,33 @@ while True:
                   [sin(angle_z), cos(angle_z), 0],
                   [0, 0, 1]]
     
-    points = [0 for _ in range(len(pints))]
-    i = 0
-    for i, point in enumerate(points):
+    points_2d_screen = []
+
+    for i in range(len(pints)):
+        point = pints[i]
         rotate_x = multiply_m(rotation_x, point)
         rotate_y = multiply_m(rotation_y, rotate_x)
         rotate_z = multiply_m(rotation_z, rotate_y)
         point_2d = multiply_m(projection_matrix, rotate_z)
 
-        x = int(point_2d[0, 0] * scale) + SIZE1/2
-        y = int(point_2d[1, 0] * scale) + SIZE2/2
+        x = int(point_2d[0][0] * scale) + SIZE1 // 2
+        y = int(point_2d[1][0] * scale) + SIZE2 // 2
 
-        points[i] = (x,y)
-        i += 1
+        points_2d_screen.append((x,y))
         pg.draw.circle(WIN, (255, 69, 0), (x, y), 5)
 
-    connect_points(0, 1, points)
-    connect_points(0, 3, points)
-    connect_points(0, 4, points)
-    connect_points(1, 2, points)
-    connect_points(1, 5, points)
-    connect_points(2, 6, points)
-    connect_points(2, 3, points)
-    connect_points(3, 7, points)
-    connect_points(4, 5, points)
-    connect_points(4, 7, points)
-    connect_points(6, 5, points)
-    connect_points(6, 7, points)
+    connect_points(0, 1, points_2d_screen)
+    connect_points(0, 3, points_2d_screen)
+    connect_points(0, 4, points_2d_screen)
+    connect_points(1, 2, points_2d_screen)
+    connect_points(1, 5, points_2d_screen)
+    connect_points(2, 6, points_2d_screen)
+    connect_points(2, 3, points_2d_screen)
+    connect_points(3, 7, points_2d_screen)
+    connect_points(4, 5, points_2d_screen)
+    connect_points(4, 7, points_2d_screen)
+    connect_points(6, 5, points_2d_screen)
+    connect_points(6, 7, points_2d_screen)
 
     for event in pg.event.get():
         if event.type == pg.KEYDOWN:

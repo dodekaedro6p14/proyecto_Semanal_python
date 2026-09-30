@@ -1,3 +1,4 @@
+import sys
 import random
 import typing
 import pygame as pg
@@ -6,10 +7,10 @@ pg.init()
 pg.mixer.init()
 SCREEN_SIZE = (1080, 720)
 PARTICLE_COUNT = 20
-pg.mixer.music.load("son/inter_space.mp3")
+pg.mixer.music.load("viento.mp3")
 pg.mixer.music.play(-1)
 pg.display.set_caption("C0M0 CR30 QU3 3S 3L UN1V3RS00")
-BG = pg.image.load("ima/fondo_demo.jpg")
+#BG = pg.image.load("ima/fondo_demo.jpg")
 cam_x = 0
 cam_y = 0
 class Particle:
@@ -84,7 +85,7 @@ class App:
         global cam_x
         global cam_y
         self.screen.fill("black")
-        self.screen.blit(BG, (cam_x, cam_y))
+        # self.screen.blit(BG, (cam_x, cam_y))
         cam_x -= 0.05
         cam_y -= 0.05
 

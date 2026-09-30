@@ -1,30 +1,35 @@
+import sys
 import pygame as pg
 import numpy as np
 from math import *
 
-pg.init()
 WIDTH, HEIGH = 1080, 720
-pg.display.set_caption("PR0Y3CT3D P03S14 3D")
-SCREEN = pg.display.set_mode((WIDTH, HEIGH))
 ESCALA = 50
 CIRCLE_POS = (WIDTH /2,  HEIGH / 2)
 ANGLE = 0
+
+pg.init()
+pg.display.set_caption("PR0Y3CT3D P03S14 3D")
+SCREEN = pg.display.set_mode((WIDTH, HEIGH))
 ########################## PUNTOS
 class Cube:
-    points = []
-    points.append(np.matrix([0, 0, 0]))
-    points.append(np.matrix([-3.0, 0, 0]))
-    points.append(np.matrix([1.8, 1.7, 1.7]))
-    points.append(np.matrix([-1.8, -1.8, -1.8]))
+    points = [
+        np.matrix([0, 0, 0]),
+        np.matrix([-3.0, 0, 0]),
+        np.matrix([1.8, 1.7, 1.7]),
+        np.matrix([-1.8, -1.8, -1.8])
+    ]
     projection_matrix = np.matrix([
                         [1, 0, 0],
                         [0, 1, 0],     ])
 
-    projected_points = [[n, n] for n in range(len(points))]
+    projected_points = [[0, 0] for _ in range(len(points))]
 
     def connect_points(i, j, points):
-        pg.draw.line(SCREEN, 'white', (points[i][0], points[i][1]), 
-                                        (points[j][0], points[j][1]))
+        p1 = (int(points[i][0]), int(points[i][1]))
+        p2 = (int(points[j][0]), int(points[j][1]))
+        pg.draw.line(SCREEN, 'white', p1, p2)
+
 ########################## PROGRAMA
     clock = pg.time.Clock()
     while True:
@@ -32,12 +37,12 @@ class Cube:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
-                exit()
+                sys.exit()
 
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     pg.quit()
-                    exit()
+                    sys.exit()
 
         rotation_z = np.matrix([
                     [cos(ANGLE), -sin(ANGLE), 0],
@@ -57,8 +62,8 @@ class Cube:
             rotated2d = np.dot(rotation_y, rotated2d)
             projected2d = np.dot(projection_matrix, rotated2d)
     
-            x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-            y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+            x = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+            y = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
 
             projected_points[i] = [x, y]
             pg.draw.circle(SCREEN, 'red', (x, y), 5)
