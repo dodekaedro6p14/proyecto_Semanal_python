@@ -1,41 +1,42 @@
-import pygame
+import sys
+import pygame as pg
 import numpy as np
 from math import *
 
-pygame.init()
 WIDTH, HEIGHT = 1080, 720
-pygame.display.set_caption("FL0R 0F L0T0 3DD")
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pg.init()
+pg.display.set_caption("FL0R 0F L0T0 3DD")
+WIN = pg.display.set_mode((WIDTH, HEIGHT))
 ########################## PUNTOS
-points = []
+points = [
 #points.append(np.matrix([0, 0, 0]))
-points.append(np.matrix([2, 0, 0]))           #0
-points.append(np.matrix([-2, 2, 7]))          #1
-points.append(np.matrix([0.5, 0.5, 0.5]))     #2
-points.append(np.matrix([-1.8, -1.8, -1.8]))  #3
-        
+    np.matrix([2, 0, 0]),           #0
+    np.matrix([-2, 2, 7]),          #1
+    np.matrix([0.5, 0.5, 0.5]),     #2
+    np.matrix([-1.8, -1.8, -1.8])   #3
+]       
 projection_matrix = np.matrix([
                     [1, 0, 0],
                     [0, 1, 0],])
 
-projected_points = [[n, n] for n in range(len(points))]
+projected_points = [[0, 0] for _ in range(len(points))]
 
 def connect_points(i, j, points):
-    pygame.draw.line(WIN, 'white',(points[i][0], points[i][1]),                                                   (points[j][0], points[j][1]))
+    pg.draw.line(WIN, 'white',(points[i][0], points[i][1]),                                                   (points[j][0], points[j][1]))
 
     
 
 def draw():
-#    pygame.draw.circle(WIN, 'red',(WIDTH/2, HEIGHT/2), 5)
-#    pygame.draw.arc(WIN, 'cyan', ((WIDTH/2, HEIGHT/2), 100, 100))
-    pygame.display.update()
+#    pg.draw.circle(WIN, 'red',(WIDTH/2, HEIGHT/2), 5)
+#    pg.draw.arc(WIN, 'cyan', ((WIDTH/2, HEIGHT/2), 100, 100))
+    pg.display.update()
 
 def fondo(self):
     WIN.fill('black')          
 ########################## PROGRAMA
 def main():
     run = True
-    clock = pygame.time.Clock()
+    clock = pg.time.Clock()
     
     ESCALA = 50
     CIRCLE_POS = (WIDTH /2,  HEIGHT / 2)
@@ -43,13 +44,13 @@ def main():
    
     while run:
         clock.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 run = False
                 break
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
                     run = False
                     break
 
@@ -75,11 +76,11 @@ def main():
             rotated2d = np.dot(rotation_y, rotated2d)
             projected2d = np.dot(projection_matrix, rotated2d)
 
-            x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-            y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+            x = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+            y = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
 
             projected_points[i] = [x, y]
-            pygame.draw.circle(WIN, 'cyan', (x,y), 10)
+            pg.draw.circle(WIN, 'cyan', (x,y), 10)
             i += 1
     
         connect_points(1, 2, projected_points)    
@@ -88,7 +89,7 @@ def main():
 
         draw()
         fondo(WIN)
-    pygame.quit()
+    pg.quit()
     quit()
 
 if __name__ == "__main__":

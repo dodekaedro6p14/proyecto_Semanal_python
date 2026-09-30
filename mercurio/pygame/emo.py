@@ -1,10 +1,10 @@
 import pygame as pg
 from math import *
 
-#pg.init()
+pg.init()
 SIZE1, SIZE2 = 1366, 768  
 ROTATE_SPEED = 0.02 # VELOCIDAD DE ROTACION 
-BG = pg.image.load('../ima/copo_r2.jpg')
+#BG = pg.image.load('../ima/copo_r2.jpg')
 pg.display.set_caption("emo.py 'copo de nieve'")
 WIN = pg.display.set_mode((SIZE1, SIZE2))
 clock = pg.time.Clock()
@@ -76,8 +76,8 @@ scale = 100
 angle_x = angle_y = angle_z = 0
 while True:
     clock.tick(60)
-    WIN.blit(BG, [335, 154])
-#    WIN.fill((0, 0, 0))
+#    WIN.blit(BG, [335, 154])
+    WIN.fill((0, 0, 0))
     rotation_x = [[1, 0, 0], 
                   [0, cos(angle_x), -sin(angle_x)],
                   [0, sin(angle_x), cos(angle_x)]]
@@ -92,14 +92,14 @@ while True:
     
     points = [0 for _ in range(len(pints))]
     i = 0
-    for point in pints:
+    for i, point in enumerate(points):
         rotate_x = multiply_m(rotation_x, point)
         rotate_y = multiply_m(rotation_y, rotate_x)
         rotate_z = multiply_m(rotation_z, rotate_y)
         point_2d = multiply_m(projection_matrix, rotate_z)
 
-        x = (point_2d[0][0] * scale) + SIZE1/2
-        y = (point_2d[1][0] * scale) + SIZE2/2
+        x = int(point_2d[0, 0] * scale) + SIZE1/2
+        y = int(point_2d[1, 0] * scale) + SIZE2/2
 
         points[i] = (x,y)
         i += 1
