@@ -5,8 +5,8 @@ SIZE = (1080, 720)
 ##### CREACION DE LA VENTANA #############
 pg.display.set_caption("    Mi TRASTORNO CARDIVASCULAR; transtorno.py   ")
 SCREEN = pg.display.set_mode(SIZE)
-IMAGE  = pg.image.load("cardio_sanginio.jpg").convert()
-IMAGEN_LIBRO = pg.image.load("libro_cardio.png").convert()
+#IMAGE  = pg.image.load("cardio_sanginio.jpg").convert()
+#IMAGEN_LIBRO = pg.image.load("libro_cardio.png").convert()
 clock  = pg.time.Clock()
 
 ########## DIMENCIONES  ################
@@ -109,7 +109,7 @@ while True:
     MOUSE_POS = pg.mouse.get_pos()
     print(MOUSE_POS)
     SCREEN.fill('black')
-    SCREEN.blit(IMAGE, [-187, 0])
+#    SCREEN.blit(IMAGE, [-187, 0])
 ############### UBICACIONES DEL CORAZON
     pg.draw.circle(SCREEN, 'red', (639, 539), DERECHO_UP4)
     pg.draw.circle(SCREEN, 'blue', (518, 348), IZQUIERDO_GRA)

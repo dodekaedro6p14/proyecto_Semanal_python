@@ -1,45 +1,45 @@
+import sys
 import pygame as pg
 import numpy as np
 from math import *
 
 ############## VENTANA
 WIDTH, HEIGH = 1600, 900
-#pygame.display.set_caption("PR0Y3CT0 P03S14 3D")
-SCREEN = pg.display.set_mode((WIDTH, HEIGH))
 ESCALA = 50
 CIRCLE_POS = (WIDTH /2, HEIGH /2)
 ANGLE = 0
-
+pg.init()
+pg.display.set_caption("PR0Y3CT0 P03S14 3D")
+SCREEN = pg.display.set_mode((WIDTH, HEIGH))
 ####################### PUNTOS
-points = []
-points.append(np.matrix([-3,4,0]))  #
-points.append(np.matrix([-3,-4,0]))
-points.append(np.matrix([3,-4,0]))
-points.append(np.matrix([3,4,0]))
+points = [
+    np.matrix([-3,4,0]),  #
+    np.matrix([-3,-4,0]),
+    np.matrix([3,-4,0]),
+    np.matrix([3,4,0]),
 
-points.append(np.matrix([-4, 0, -3]))
-points.append(np.matrix([-4, 0, 3]))
-points.append(np.matrix([4, 0, 3]))
-points.append(np.matrix([4, 0, -3]))
+    np.matrix([-4, 0, -3]),
+    np.matrix([-4, 0, 3]),
+    np.matrix([4, 0, 3]),
+    np.matrix([4, 0, -3]),
 
-points.append(np.matrix([0, 3, 4]))
-points.append(np.matrix([0, -3, 4]))
-points.append(np.matrix([0, -3, -4]))
-points.append(np.matrix([0, 3, -4]))
-
+    np.matrix([0, 3, 4]),
+    np.matrix([0, -3, 4]),
+    np.matrix([0, -3, -4]),
+    np.matrix([0, 3, -4])
+]
 projection_matrix = np.matrix([
     [1, 0, 0],
     [0, -1, 0],
-    [0, 0, 0]
-
-    ])
+    [0, 0, 0]])
 
 projected_points = [
-        [n, n] for n in range(len(points))]
+        [0, 0] for _ in range(len(points))]
 
 def connect_points(i, j, points):
-    pg.draw.line(SCREEN, (57,255,20), (points[i][0], 
-                              points[i][1]), (points[j][0], points[j][1]))
+    p1 = (int(points[i][0]), int(points[i][1]))
+    p2 = (int(points[j][0]), int(points[j][1]))
+    pg.draw.line(SCREEN, (255, 255, 255), p1, p2)
 
 ###################### PROGRAMA
 clock = pg.time.Clock()
@@ -48,12 +48,12 @@ while True:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             pg.quit()
-            exit()
+            sys.exit()
 
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 pg.quit()
-                exit()
+                sys.exit()
 
     rotation_x = np.matrix([
         [cos(ANGLE), 0, -sin(ANGLE)],
@@ -73,18 +73,19 @@ while True:
     ANGLE += 0.01
     SCREEN.fill('black')
     i = 0
-    for point in points:
+    for i, point in enumerate(points):
         rotated2d = np.dot(rotation_z, point.reshape(3, 1))
         rotated2d = np.dot(rotation_y, rotated2d)
+        rotated2d = np.dot(rotation_x, rotated2d)
 
         projected2d = np.dot(projection_matrix, rotated2d)
 
-        x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-        y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+        x = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+        y = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
 
         projected_points[i] = [x, y]
         pg.draw.circle(SCREEN, (57,255,20), (x, y), 1)
-        i += 1
+
 
     connect_points(9, 10, projected_points)
     connect_points(10, 11, projected_points)

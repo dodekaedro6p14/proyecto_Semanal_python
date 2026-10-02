@@ -6,7 +6,7 @@ size    =  (1080, 720)
 pg.display.set_caption("MI TRASTORNO CARDIOVASCULAR") 
 screen = pg.display.set_mode(size)
 clock  = pg.time.Clock()
-IMAGE = pg.image.load("corazon.jpg").convert()
+#IMAGE = pg.image.load("corazon.jpg").convert()
 ############## coordenadas
 coord_x = 400
 coord_y = 200
@@ -29,7 +29,8 @@ while run:
         speed_x *= -1
 
     coord_x += speed_x
-    screen.blit(IMAGE, [0, 0])
+    #screen.blit(IMAGE, [0, 0])
+    screen.fill('black')  # Color de fondo
     #### ZONA DE DIBUJO
     pg.draw.rect(screen, 'red', (coord_x, coord_y, 80, 80))
 

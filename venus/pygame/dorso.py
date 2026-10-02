@@ -4,9 +4,10 @@ import math
 
 #DISEÑO DE LA VENTANA
 WIDTH, HEIGHT = 1080, 720
+pg.init()
 pg.display.set_caption("C0R4Z0N D3 D14 V13RN35")
 WIN = pg.display.set_mode((WIDTH, HEIGHT))
-BG = pg.transform.scale(pg.image.load("image_dorso.jpg"), (WIDTH, HEIGHT))
+#BG = pg.transform.scale(pg.image.load("image_dorso.jpg"), (WIDTH, HEIGHT))
 surface = pg.Surface((WIDTH, HEIGHT), pg.SRCALPHA)
 FPS = 60
 timer = pg.time.Clock()
@@ -19,7 +20,8 @@ def draw_screen():
     pg.display.update()
 
 def draw(player):
-    WIN.blit(BG, (0, 0))
+    #WIN.blit(BG, (0, 0))
+    WIN.fill((0, 0, 0))
     pg.draw.rect(WIN, "red", player)
     pg.display.update()
 
@@ -29,7 +31,8 @@ def main():
     player = pg.Rect(200, HEIGHT - MONO_H, MONO_W, MONO_H)
     while run:
         timer.tick(FPS)
-        WIN.blit(surface, (0, 0))
+        #WIN.blit(surface, (0, 0))
+        WIN.fill((0, 0, 0))
         draw_screen()
        
         for event in pg.event.get():
@@ -44,7 +47,7 @@ def main():
             pg.draw.arc(WIN, 'black', ((0,540), (180, 180)), 0, math.pi/2, width=10 )
 #            draw(player)
         pg.display.flip()
-    pg.quit()
+    pg.display.update()
 
 
 #    pointslist = ((0,0), (100, 100),(0, 100))

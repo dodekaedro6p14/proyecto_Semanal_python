@@ -1,7 +1,4 @@
-
-# Jean Joubert 14 April 2020
-# Simple program to rotate cube in 3D space
-
+import sys
 import turtle
 from math import sin,cos
 
@@ -11,6 +8,14 @@ win.tracer(0)
 win.title('cuatro fantasticos, cuatro_cubos.py')
 win.bgcolor('black')
 counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -74,17 +79,23 @@ cube5 = Cube(0, 0, '3', 'white')
 
 cube_list = (cube, cube2, cube3, cube4, cube5)
 
-while True:
-    for i in cube_list:
-        i.t.clear()
-        i.draw()
- 
-    win.update()
-    cube.counter  += 0.015 ## lime
-    cube2.counter += 0.015 ## red
-    cube3.counter -= 0.015 ## yellow
-    cube4.counter -= 0.015 ## blue
-    cube5.counter -= 0.015
+try:
+    while running:
+        for i in cube_list:
+            i.t.clear()
+            i.draw()
+     
+        win.update()
+        cube.counter  += 0.015 ## lime
+        cube2.counter += 0.015 ## red
+        cube3.counter -= 0.015 ## yellow
+        cube4.counter -= 0.015 ## blue
+        cube5.counter -= 0.015
+
+except turtle.Terminator:
+    pass
+
+sys.exit()
 
 ######3     insertando flores
 def medicircle():

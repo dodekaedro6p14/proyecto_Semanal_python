@@ -4,7 +4,7 @@ from math import *
 pg.init()
 WIDTH, HEIGHT = 1080, 720
 pg.display.set_caption("C0R4Z0N 3D")
-BG = pg.transform.scale(pg.image.load("cuadricula.avif"), (WIDTH, HEIGHT))
+#BG = pg.transform.scale(pg.image.load("cuadricula.avif"), (WIDTH, HEIGHT))
 WIN = pg.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 clock = pg.time.Clock()
@@ -91,7 +91,8 @@ angle_x = angle_y = angle_z = 0
 
 while True:
     clock.tick(60)
-    WIN.blit(BG, [0, 0])
+    #WIN.blit(BG, [0, 0])
+    WIN.fill((0, 0, 0))
     rotation_x = [[1, 0, 0], 
                   [0, cos(angle_x), -sin(angle_x)],
                   [0, sin(angle_x), cos(angle_x)]]

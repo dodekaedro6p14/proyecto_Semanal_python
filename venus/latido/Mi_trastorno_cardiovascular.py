@@ -5,8 +5,8 @@ SIZE = (1080, 720)
 ##### CREACION DE LA VENTANA #############
 pygame.display.set_caption("    Mi TRASTORNO CARDIVASCULAR; transtorno.py   ")
 SCREEN = pygame.display.set_mode(SIZE)
-IMAGE  = pygame.image.load("cardio_sanginio.jpg").convert()
-IMAGEN_LIBRO = pygame.image.load("libro_cardio.png").convert()
+#IMAGE  = pygame.image.load("cardio_sanginio.jpg").convert()
+#IMAGEN_LIBRO = pygame.image.load("libro_cardio.png").convert()
 clock  = pygame.time.Clock()
 
 ########## DIMENCIONES  ################
@@ -103,7 +103,7 @@ while True:
     MOUSE_POS = pygame.mouse.get_pos()
     print(MOUSE_POS)
     SCREEN.fill('white')
-    SCREEN.blit(IMAGE, [0, 0])
+#    SCREEN.blit(IMAGE, [0, 0])
 ############### UBICACIONES DEL CORAZON
     pygame.draw.circle(SCREEN, 'red', (630, 343), DERECHO_UP4)
     pygame.draw.circle(SCREEN, 'red', (518, 348), IZQUIERDO_GRA)
@@ -121,6 +121,6 @@ while True:
     pygame.draw.circle(SCREEN, 'red', (650, 568), MEDIO_DW1)
     pygame.draw.circle(SCREEN, 'red', (720, 530), MEDIO_DW2)
 
-    SCREEN.blit(IMAGEN_LIBRO, [50, 200])
+#    SCREEN.blit(IMAGEN_LIBRO, [50, 200])
     pygame.display.flip()
     clock.tick(30)

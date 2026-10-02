@@ -1,82 +1,78 @@
-import pygame
+import sys
+import pygame as pg
 import numpy as np
 from math import *
 
-##########################c COLORES
-WHITE  = (255, 255, 255)
-BLACK  = (  0,   0,   0)
-RED    = (255,   0,   0)
-
 ######################### VENTANA
-
 WIDTH, HEIGH = 1080, 720
-pygame.display.set_caption("PR0Y3CT0 M3T4TR0N")
-SCREEN = pygame.display.set_mode((WIDTH, HEIGH))
 ESCALA = 50
 CIRCLE_POS = (WIDTH /2, HEIGH /2)
 ANGLE = 0
-
+pg.init()
+pg.display.set_caption("PR0Y3CT0 M3T4TR0N")
+SCREEN = pg.display.set_mode((WIDTH, HEIGH))
 ####################### PUNTOS
-points = []
+points = [
 ######## PLANO Z
-points.append(np.matrix([-10,7,0])) #0
-points.append(np.matrix([-10,-7,0])) #1
-points.append(np.matrix([10,-7,0])) #2
-points.append(np.matrix([10,7,0])) #3
+    np.matrix([-10,7,0]), #0
+    np.matrix([-10,-7,0]), #1
+    np.matrix([10,-7,0]), #2
+    np.matrix([10,7,0]),  #3
 
 ####### PLANO X
-points.append(np.matrix([-3, -3, -2.5])) #4
-points.append(np.matrix([-3, -3, 2.5]))   #5 
-points.append(np.matrix([0, -3, 2.8]))     #6
-points.append(np.matrix([1.8, -3, 0]))     #7
-points.append(np.matrix([0, -3, -2.8]))   #8
+    np.matrix([-3, -3, -2.5]), #4
+    np.matrix([-3, -3, 2.5]),   #5 
+    np.matrix([0, -3, 2.8]),     #6
+    np.matrix([1.8, -3, 0]),     #7
+    np.matrix([0, -3, -2.8]),   #8
 
-points.append(np.matrix([0, -4, 2]))
-points.append(np.matrix([0, -4, -2]))
-points.append(np.matrix([0, 4, -2]))
+    np.matrix([0, -4, 2]),
+    np.matrix([0, -4, -2]),
+    np.matrix([0, 4, -2]),
 
 ######## PUNTOS DE LA FLOR
-points.append(np.matrix([0, 3, 0]))  ###ad
-points.append(np.matrix([2.3, -1.5,-1.5])) 
-points.append(np.matrix([-2.3, -1.5, -1.2])) 
-points.append(np.matrix([0, -1.2, 2.6])) 
-points.append(np.matrix([0, -3, 0])) #####ac
-points.append(np.matrix([2.3, 1.2, 1.5])) 
-points.append(np.matrix([-2.3,1.2, 1.5])) 
-points.append(np.matrix([0, 1.2, -2.6])) 
+    np.matrix([0, 3, 0]),  ###ad
+    np.matrix([2.3, -1.5,-1.5]), 
+    np.matrix([-2.3, -1.5, -1.2]), 
+    np.matrix([0, -1.2, 2.6]), 
+    np.matrix([0, -3, 0]), #####ac
+    np.matrix([2.3, 1.2, 1.5]), 
+    np.matrix([-2.3, 1.2, 1.5]), 
+    np.matrix([0, 1.2, -2.6]),
 
 #points.append(np.matrix([3, 0, 3]))
 #points.append(np.matrix([3, 0, -3]))
 #points.append(np.matrix([-3, 0, -3]))
 #points.append(np.matrix([-3, 0, 3]))
 
-points.append(np.matrix([0, 6, 0]))   ### centro de la flor
-
+    np.matrix([0, 6, 0])   ### centro de la flor
+]
 projection_matrix = np.matrix([
     [1, 0, 0],
     [0, 1, 0],
     [0, 0, 0]])
 
 projected_points = [
-        [n, n] for n in range(len(points))]
+        [0, 0] for _ in range(len(points))]
 
 def connect_points(i, j, points):
-    pygame.draw.line(SCREEN, WHITE, (points[i][0], 
-                              points[i][1]), (points[j][0], points[j][1]))
+    p1 = (int(points[i][0]), int(points[i][1]))
+    p2 = (int(points[j][0]), int(points[j][1]))
+    pg.draw.line(SCREEN, (255, 255, 255), p1, p2)
 
 ###################### PROGRAMA
-clock = pygame.time.Clock()
+clock = pg.time.Clock()
 while True:
     clock.tick(20)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            sys.exit()
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                exit()
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_ESCAPE:
+                pg.quit()
+                sys.exit()
 
     rotation_x = np.matrix([
         [cos(ANGLE), 0, -sin(ANGLE)],
@@ -97,19 +93,20 @@ while True:
         ])
 
     ANGLE += 0.01
-    SCREEN.fill(BLACK)
+    SCREEN.fill((0, 0, 0))
     i = 0
     for point in points:
         rotated2d = np.dot(rotation_z, point.reshape(3, 1))
         rotated2d = np.dot(rotation_y, rotated2d)
+        rotated2d = np.dot(rotation_x, rotated2d)
 
         projected2d = np.dot(projection_matrix, rotated2d)
 
-        x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-        y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+        x = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+        y = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
 
         projected_points[i] = [x, y]
-        pygame.draw.circle(SCREEN, RED, (x, y), 5)
+        pg.draw.circle(SCREEN, (255, 0, 0), (x, y), 5)
         i += 1
 
     connect_points(4, 5, projected_points)
@@ -135,5 +132,5 @@ while True:
 #        connect_points(p, (p + 1) % 4, projected_points)
 #        connect_points(p + 4, ((p + 1) % 4) + 4, projected_points)
 #        connect_points(p + 8, ((p + 1) % 8) + 8, projected_points)
-    pygame.display.update()
+    pg.display.update()
 
