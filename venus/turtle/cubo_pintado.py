@@ -1,12 +1,21 @@
+import sys
 import turtle
 from math import sin,cos
 
 win = turtle.Screen()
 win.setup(600,600)
 win.tracer(0)
-counter = 0
+#counter = 0
 win.title('DODEKAEDRO')
 win.bgcolor('black')
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -55,11 +64,14 @@ class Cube:
 
 
 cube = Cube()
-while True:
-    cube.t.clear()
-    cube.draw()
-    win.update()
-    cube.counter += 0.001   ##conteo de vueltas ('0.005')
-    
-##exitonclick()
-##    win.input('Enter para salir')
+
+try:
+    while running:
+        cube.t.clear()
+        cube.draw()
+        win.update()
+        cube.counter += 0.001   ##conteo de vueltas ('0.005')
+
+except turtle.Terminator:
+    pass
+sys.exit()
