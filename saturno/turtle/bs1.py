@@ -1,3 +1,4 @@
+import sys
 import turtle
 from math import sin,cos
 
@@ -7,6 +8,14 @@ win.tracer(0)
 win.bgcolor('black')
 win.title('bs1.py')
 counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -59,11 +68,15 @@ class Cube:
             self.ball.dy *= -1
 
 cube = Cube(counter)
-while True:
-    cube.t.clear()
-    cube.draw()  
-    win.update()
-    cube.counter += 0.002  ## velocidad del cubo 
-    cube.move_ball()  
+try:
+    while running:
+        cube.t.clear()
+        cube.draw()  
+        win.update()
+        cube.counter += 0.002  ## velocidad del cubo 
+        cube.move_ball()
+except turtle.Terminator:
+    pass
 
-    win.onkey(win.bye, 'p')
+sys.exit()
+

@@ -1,3 +1,4 @@
+import sys
 import turtle
 from math import sin,cos
 
@@ -8,6 +9,14 @@ win.title('ajna.py')
 win.listen()
 counter = 0
 win.bgcolor("black")
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -113,15 +122,22 @@ win.onkey(move_left, 'a')
 win.onkey(move_in, 'q')
 win.onkey(move_out, 'e')
 
-while True:
-    cube1.t.clear()
-    cube1.draw()
-#    cube2.t.clear()
-#    cube2.draw()
-#    cube3.t.clear()
-#    cube3.draw()
+try: 
+    while running:
+        cube1.t.clear()
+        cube1.draw()
  
-    win.update()
-    cube1.counter += 0.005 # 0.005
+    #    cube2.t.clear()
+    #    cube2.draw()
+    #    cube3.t.clear()
+    #    cube3.draw()
+ 
+        win.update()
+        cube1.counter += 0.005 # 0.005
 #    cube2.counter -= 0.005
 #    cube3.counter += 0.007   
+
+except turtle.Terminator:
+    pass
+
+sys.exit()

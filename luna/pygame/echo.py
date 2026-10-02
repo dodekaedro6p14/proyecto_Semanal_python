@@ -7,7 +7,7 @@ pg.init()
 pg.mixer.init()
 SCREEN_SIZE = (1080, 720)
 PARTICLE_COUNT = 20
-pg.mixer.music.load("viento.mp3")
+pg.mixer.music.load("../../mus/viento.mp3")
 pg.mixer.music.play(-1)
 pg.display.set_caption("C0M0 CR30 QU3 3S 3L UN1V3RS00")
 #BG = pg.image.load("ima/fondo_demo.jpg")

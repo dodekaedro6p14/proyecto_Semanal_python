@@ -1,24 +1,29 @@
+import sys
 import pygame as pg
 import numpy as np
 from math import *
 
 ALTO, ANCHO = 1080, 720
-pg.display.set_caption("  PORYECTO ISOCAEDRO")
-SCREEN = pg.display.set_mode((ALTO, ANCHO))
 ESCALA = 50
 CIRCLE_POS = (ALTO/2, ANCHO/2)
 ANGLE = 0
 
-# UBICACIONES DE LAS ESFERAS
-punto = []
-punto.append(np.matrix([0,0,0]))
-punto.append(np.matrix([0, 0, -3]))
-punto.append(np.matrix([2.3,1.5,1.2]))
-punto.append(np.matrix([-2.3,1.5,1.2]))
-punto.append(np.matrix([0,-2.6,1.2]))
+pg.init()
+pg.display.set_caption("  PORYECTO ISOCAEDRO")
+SCREEN = pg.display.set_mode((ALTO, ANCHO))
 
-geo = []
-geo.append(np.matrix([1, 1, 2 ]))
+# UBICACIONES DE LAS ESFERAS
+punto = [
+    np.matrix([0,0,0]),
+    np.matrix([0, 0, -3]),
+    np.matrix([2.3,1.5,1.2]),
+    np.matrix([-2.3,1.5,1.2]),
+    np.matrix([0,-2.6,1.2])
+]
+
+geo = [
+    np.matrix([1, 1, 2 ])
+]
 
 projection_matrix = np.matrix([
     [1, 0, 0],
@@ -26,11 +31,12 @@ projection_matrix = np.matrix([
     [0, 0, 0]])
 
 projected_points = [
-        [n, n] for n in range(len(punto))]
+        [0, 0] for _ in range(len(punto))        ]
 
 def connect_points(i, j, punto):
-    pg.draw.line(SCREEN, ('white'), (punto[i][0], punto[i][1]), 
-                                    (punto[j][0], punto[j][1]))
+    p1 = (int(punto[i][0]), int(punto[i][1]))
+    p2 = (int(punto[j][0]), int(punto[j][1]))
+    pg.draw.line(SCREEN, (255, 255, 255), p1, p2)
 
 clock = pg.time.Clock()
 while True:
@@ -39,7 +45,7 @@ while True:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 pg.quit()
-                exit()
+                sys.exit()
 
     rotacion_x = np.matrix([
         [cos(ANGLE), 0, -sin(ANGLE)],
@@ -52,8 +58,8 @@ while True:
     for point in punto:
         rotated2d = np.dot(rotacion_x, point.reshape(3, 1))
         projected2d = np.dot(projection_matrix, rotated2d)
-        x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-        y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+        x = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+        y = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
         projected_points[i] = [x, y]
         i += 1
 #        pygame.draw.circle(SCREEN, CYAN, (360, 450), 30)

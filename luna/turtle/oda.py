@@ -1,3 +1,4 @@
+import sys
 import turtle
 from math import sin,cos
 
@@ -6,8 +7,15 @@ win.bgcolor('black')
 win.title('cubo gira en 3D oda.py')
 win.setup(600,600)
 win.tracer(0)
-win.listen()
 counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -151,58 +159,61 @@ win.onkey(move_left, 'a')
 win.onkey(move_in, 'q')
 win.onkey(move_out, 'e')
 
-while True:
-    cube1.t.clear();     cube1.draw()
-    cube2.t.clear();     cube2.draw()
-    cube3.t.clear();     cube3.draw()
-    cube4.t.clear();     cube4.draw()
-    cube5.t.clear();     cube5.draw()
-    cube6.t.clear();     cube6.draw()
-    cube7.t.clear();     cube7.draw()
-    cube8.t.clear();     cube8.draw()
-    cube9.t.clear();     cube9.draw()
-    cube10.t.clear();    cube10.draw()
-    cube11.t.clear();    cube11.draw()
-    cube12.t.clear();    cube12.draw()
-    cube13.t.clear();    cube13.draw()
-    cube14.t.clear();    cube14.draw()
-    cube15.t.clear();    cube15.draw()
-    cube16.t.clear();    cube16.draw()
-    cube17.t.clear();    cube17.draw()
-    cube18.t.clear();    cube18.draw()
-    cube19.t.clear();    cube19.draw()
-    cube20.t.clear();    cube20.draw()
-    cube21.t.clear();    cube21.draw()
-    cube22.t.clear();    cube22.draw()
-    cube23.t.clear();    cube23.draw()
-    cube24.t.clear();    cube24.draw()
+try: 
+    while running:
+        cube1.t.clear();     cube1.draw()
+        cube2.t.clear();     cube2.draw()
+        cube3.t.clear();     cube3.draw()
+        cube4.t.clear();     cube4.draw()
+        cube5.t.clear();     cube5.draw()
+        cube6.t.clear();     cube6.draw()
+        cube7.t.clear();     cube7.draw()
+        cube8.t.clear();     cube8.draw()
+        cube9.t.clear();     cube9.draw()
+        cube10.t.clear();    cube10.draw()
+        cube11.t.clear();    cube11.draw()
+        cube12.t.clear();    cube12.draw()
+        cube13.t.clear();    cube13.draw()
+        cube14.t.clear();    cube14.draw()
+        cube15.t.clear();    cube15.draw()
+        cube16.t.clear();    cube16.draw()
+        cube17.t.clear();    cube17.draw()
+        cube18.t.clear();    cube18.draw()
+        cube19.t.clear();    cube19.draw()
+        cube20.t.clear();    cube20.draw()
+        cube21.t.clear();    cube21.draw()
+        cube22.t.clear();    cube22.draw()
+        cube23.t.clear();    cube23.draw()
+        cube24.t.clear();    cube24.draw()
 
-    win.update()
-    cube1.counter -=  0.004    
-    cube2.counter -=  0.0042
-    cube3.counter -=  0.0044
-    cube4.counter -=  0.0046
-    cube5.counter -=  0.0048
-    cube6.counter -=  0.005
-    cube7.counter -=  0.0052
-    cube8.counter -=  0.0054
-    cube9.counter -=  0.0056
-    cube10.counter -= 0.0058
-    cube11.counter -= 0.006
-    cube12.counter -= 0.0062
-    cube13.counter -= 0.0064
-    cube14.counter -= 0.0066
-    cube15.counter -= 0.0068
-    cube16.counter -= 0.007
-    cube17.counter -= 0.0072
-    cube18.counter -= 0.0074
-    cube19.counter -= 0.0076
-    cube20.counter -= 0.0078
-    cube21.counter -= 0.008
-    cube22.counter -= 0.0082
-    cube23.counter -= 0.0084
-    cube24.counter -= 0.0086
+        win.update()
+        cube1.counter -=  0.004    
+        cube2.counter -=  0.0042
+        cube3.counter -=  0.0044
+        cube4.counter -=  0.0046
+        cube5.counter -=  0.0048
+        cube6.counter -=  0.005
+        cube7.counter -=  0.0052
+        cube8.counter -=  0.0054
+        cube9.counter -=  0.0056
+        cube10.counter -= 0.0058
+        cube11.counter -= 0.006
+        cube12.counter -= 0.0062
+        cube13.counter -= 0.0064
+        cube14.counter -= 0.0066
+        cube15.counter -= 0.0068
+        cube16.counter -= 0.007
+        cube17.counter -= 0.0072
+        cube18.counter -= 0.0074
+        cube19.counter -= 0.0076
+        cube20.counter -= 0.0078
+        cube21.counter -= 0.008
+        cube22.counter -= 0.0082
+        cube23.counter -= 0.0084
+        cube24.counter -= 0.0086
 
-if __name__ == "__main__":
-    Cube()
+except turtle.Terminator:
+    pass
+
+sys.exit()
 

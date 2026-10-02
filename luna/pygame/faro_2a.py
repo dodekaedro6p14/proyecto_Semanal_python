@@ -1,3 +1,4 @@
+import sys
 import pygame as pg
 import numpy as np
 from math import *
@@ -12,24 +13,26 @@ ANGLE = 0
 ############### musica
 fuente = pg.font.SysFont('arial', 30)
 tex = fuente.render("demostracion", True, 'cyan')
-pg.mixer.music.load("son/963.wav")
+pg.mixer.music.load("../../mus/viento.mp3")
 ########################## PUNTOS 1
-px = []
+px = [
 #px.append(np.matrix([0, 0, 0]))
-px.append(np.matrix([0, 3, 0]))
-px.append(np.matrix([2.3, -1.5, -1.5]))
-px.append(np.matrix([-2.3, -1.5, -1.5]))
-px.append(np.matrix([0, -1.5, 2.6]))
-
+    np.matrix([0, 3, 0]),
+    np.matrix([2.3, -1.5, -1.5]),
+    np.matrix([-2.3, -1.5, -1.5]),
+    np.matrix([0, -1.5, 2.6])
+]
 pro_matrixX = np.matrix([[1, 0, 0],
                          [0, 1, 0],
                          [0, 0, 1]])
 
-pro_pointsX = [[n, n] for n in range(len(px))]
+pro_pointsX = [[0, 0] for _ in range(len(px))]
 
 def con_pointsX(i, j, px):
-    pg.draw.line(WIN, 'white', (px[i][0], px[i][1]), 
-                                   (px[j][0], px[j][1]))
+    p1 = (int(px[i][0]), int(px[i][1]))
+    p2 = (int(px[j][0]), int(px[j][1]))
+    pg.draw.line(WIN, 'deep pink', p1, p2)
+   
 
 #def texto(WIN, fuente, texto, color, dimencion, x, y):
 #    letra = pg.font.Font(arial, dimencion)
@@ -39,24 +42,26 @@ def con_pointsX(i, j, px):
 #    WIN.blit(surface, rect)
     
 ################################### PUNTOS 2
-py = []
-py.append(np.matrix([0,-3,0]))
-py.append(np.matrix([-2.3,1.5,1.5]))
-py.append(np.matrix([2.3,1.5,1.5]))
-py.append(np.matrix([0,1.5,-2.6]))
+py = [
+    np.matrix([0,-3,0]),
+    np.matrix([-2.3,1.5,1.5]),
+    np.matrix([2.3,1.5,1.5]),
+    np.matrix([0,1.5,-2.6])
+]
 
-pro_pointsY = [[m , m] for m in range(len(py))]
+pro_pointsY = [[0, 0] for _ in range(len(py))]
 
 def con_pointsY(u, k, py):
     pg.draw.line(WIN, 'green',(py[u][0], py[u][1]),
                                     (py[k][0], py[k][1]))
 #################### blue
-pz = []
-pz.append(np.matrix([0,-4,0]))
-pz.append(np.matrix([3.3,-2.5,-2.5]))
-pz.append(np.matrix([-3.3,-2.5,-2.5]))
-pz.append(np.matrix([0,-2.5, 2.6]))
-pro_pointsZ = [[p, p] for p in range(len(pz))]
+pz = [
+    np.matrix([0,-4,0]),
+    np.matrix([3.3,-2.5,-2.5]),
+    np.matrix([-3.3,-2.5,-2.5]),
+    np.matrix([0,-2.5, 2.6])
+]
+pro_pointsZ = [[0, 0] for _ in range(len(pz))]
 
 def con_pointsZ(o, q, pz):
     pg.draw.line(WIN, 'white',(pz[o][1], pz[o][0]),
@@ -94,17 +99,19 @@ while True:
     for point in px:
         rotated2d = np.dot(rotation_z, point.reshape(3, 1))
         rotated2d = np.dot(rotation_y, rotated2d)
+        rotated2d = np.dot(rotation_x, rotated2d)
+
         projected2d = np.dot(pro_matrixX, rotated2d)
         projected3d = np.dot(pro_matrixX, rotated2d)
         
-        x = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-        y = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+        x = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+        y = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
   
-        b = int(projected3d[1][0] * ESCALA) + CIRCLE_POS[0]
-        c = int(projected3d[0][0] * ESCALA) + CIRCLE_POS[1]
+        b = int(projected3d[1, 0] * ESCALA) + CIRCLE_POS[0]
+        c = int(projected3d[0, 0] * ESCALA) + CIRCLE_POS[1]
 
-        d = int(projected2d[0][0] * ESCALA) + CIRCLE_POS[0]
-        e = int(projected2d[1][0] * ESCALA) + CIRCLE_POS[1]
+        d = int(projected2d[0, 0] * ESCALA) + CIRCLE_POS[0]
+        e = int(projected2d[1, 0] * ESCALA) + CIRCLE_POS[1]
         pro_pointsX[i] = [x, y]
         pg.draw.circle(WIN, 'deep pink', (x, y), 5)
         i += 1

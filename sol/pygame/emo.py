@@ -5,7 +5,7 @@ import pygame as pg
 pg.init()
 WIDTH, HEIGHT  = 1600,900 
 #pg.display.set_caption("3J3CU74ND0 L'  PR0GR4M4")
-BG = pg.transform.scale(pg.image.load("domingo.avif"), (WIDTH, HEIGHT))
+#BG = pg.transform.scale(pg.image.load("domingo.avif"), (WIDTH, HEIGHT))
 WIN = pg.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 
@@ -19,7 +19,8 @@ def draw(objeto1, objeto2):
     pg.display.update()   
        
 def fondo(self, objeto1, objeto2):
-    WIN.blit(BG, [-7, 10])
+    #WIN.blit(BG, [-7, 10])
+    WIN.fill('black')
 
 def main():
     run  = True

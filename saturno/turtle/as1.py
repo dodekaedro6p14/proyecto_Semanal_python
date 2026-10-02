@@ -1,3 +1,4 @@
+import sys
 import turtle
 from tkinter import *
 from tkinter import ttk
@@ -12,7 +13,14 @@ ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
 win = turtle.Screen()
 win.setup(600,600)
 win.tracer(0)
-counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, "Escape")
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -56,12 +64,17 @@ class Cube:
         turtle.circle(60)
 
 cube = Cube()
-while True:
-    cube.t.clear()
-    cube.draw()
-    cube.draw2()
-    win.update()
-    cube.counter += 0.001   #0.005    
+try:
+    while running:
+        cube.t.clear()
+        cube.draw()
+        cube.draw2()
+        win.update()
+        cube.counter += 0.001   #0.005
+except turtle.Terminator:
+    pass
 
-input('Enter para salir')
-root.mainloop()
+sys.exit()
+ 
+
+

@@ -1,5 +1,4 @@
-# Jean Joubert 14 April 2020
-# Simple rotation of 3d pyramid
+import sys
 import turtle
 from math import sin,cos
 
@@ -9,6 +8,14 @@ win.title("Demostracion de navidad")
 win.bgcolor('black')
 win.tracer(0)
 counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -74,9 +81,15 @@ class Cube:
 
 
 cube = Cube()
-while True:
-    cube.t.clear()
-    cube.p.clear()
-    cube.draw()
-    win.update()
-    cube.counter += 0.005 ## +=0.005 
+try:
+    while running:
+        cube.t.clear()
+        cube.p.clear()
+        cube.draw()
+        win.update()
+        cube.counter += 0.005 ## +=0.005 
+
+except turtle.Terminator:
+    pass
+
+sys.exit()

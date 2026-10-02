@@ -14,9 +14,9 @@ class Copos_nieve(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.image = pygame.image.load("copos_nieve.jpg").convert()
-        self.image.set_colorkey([255, 255, 255])
-#        self.image.set_colorkey([0, 0, 0])
+        #self.image = pygame.image.load("copos_nieve.jpg").convert()
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(BLACK)
         self.rect = self.image.get_rect()
 
     def update(self):
@@ -27,8 +27,8 @@ class Copos_nieve(pygame.sprite.Sprite):
             self.rect.x = random.randrange(1080)
 
 SCREEN = pygame.display.set_mode([1080, 720])
-IMAGEN_FONDO = pygame.image.load("fondo_4.jpg").convert()
-IMAGEN_LIBRO = pygame.image.load("noche.jpg").convert()
+#IMAGEN_FONDO = pygame.image.load("fondo_4.jpg").convert()
+#IMAGEN_LIBRO = pygame.image.load("noche.jpg").convert()
 clock = pygame.time.Clock()
 
 ##############################
@@ -53,9 +53,9 @@ while not done:
 ################################## bacKground
 
     SCREEN.fill(WHITE)
-    SCREEN.blit(IMAGEN_FONDO, [0, 0])
+    #SCREEN.blit(IMAGEN_FONDO, [0, 0])
     all_sprite_list.draw(SCREEN)
-    SCREEN.blit(IMAGEN_LIBRO, [100, 200])
+    #SCREEN.blit(IMAGEN_LIBRO, [100, 200])
     pygame.display.flip()
     clock.tick(30)
 

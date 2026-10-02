@@ -1,3 +1,4 @@
+import sys
 import turtle
 from math import sin,cos
 
@@ -6,8 +7,15 @@ win.bgcolor('black')
 win.title('demostracion program ana.py')
 win.setup(600,600)
 win.tracer(0)
-win.listen()
 counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -97,8 +105,13 @@ win.onkey(cube.move_left, 'a')
 win.onkey(cube.move_in, 'q')
 win.onkey(cube.move_out, 'e')
 
-while True:
-    cube.t.clear()
-    cube.draw()
-    win.update()
-    cube.counter += 0.0005    
+try:
+    while running:
+        cube.t.clear()
+        cube.draw()
+        win.update()
+        cube.counter += 0.0005    
+except turtle.Terminator:
+    pass
+
+sys.exit()

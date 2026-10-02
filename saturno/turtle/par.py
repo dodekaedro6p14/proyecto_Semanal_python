@@ -1,4 +1,4 @@
-
+import sys
 import turtle
 import time
 from math import sin,cos
@@ -10,6 +10,14 @@ win.title('par.py')
 win.bgcolor('black')
 win.listen()
 counter = 0
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -98,23 +106,18 @@ win.onkey(cube.move_left, 'a')
 win.onkey(cube.move_in, 'q')
 win.onkey(cube.move_out, 'e')
 
-Run = True
-while Run:
-    cube.t.clear()
-    cube.draw()
-    win.update()
-    cube.counter += 0.002
 
-    def __init__(self) -> None:
-        self.is_run = False
-        
-        def run(self):
-            self.is_run = True
-            while self.in_run:
-                self.salir = win.bye()
-                for salir in self.salir:
-                    self.win.mainloops(win.onkey(win.bye, 'p'))
-                    Run = False
+try: 
+    while running:
+        cube.t.clear()
+        cube.draw()
+        win.update()
+
+except turtle.Terminator:
+    pass
+sys.exit()
+
+  
 
 
     

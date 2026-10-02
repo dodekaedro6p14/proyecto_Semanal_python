@@ -1,3 +1,4 @@
+import sys
 import turtle
 from math import sin,cos
 
@@ -5,9 +6,16 @@ win = turtle.Screen()
 win.setup(720,1080)
 win.tracer(0)
 win.title('metatron')
-win.listen()
 counter = 0
 win.bgcolor("black")
+running = True
+
+def close_app():
+    global running
+    running = False
+
+win.listen()
+win.onkey(close_app, 'Escape')
 
 def rotate(x,y,r):
     s,c = sin(r), cos(r)
@@ -82,12 +90,14 @@ def move_left():
             i.xpos -= 50
 
 def move_in():
-    cube1.distance += 50
-    cube2.distance += 20
+    cube1.distance += 30
+    cube2.distance += 30
+    cube3.distance += 30
 
 def move_out():
-    cube1.distance -= 50
+    cube1.distance -= 30
     cube2.distance -= 30
+    cube3.distance -= 30
 
 # Cube(x,y,axes - x,y,z or 3 ,color)
 cube1 = Cube(0,0,'3', '#9403D3')
@@ -106,15 +116,22 @@ win.onkey(move_left, 'a')
 win.onkey(move_in, 'q')
 win.onkey(move_out, 'e')
 
-while True:
-    cube1.t.clear()
-    cube1.draw()
-    cube2.t.clear()
-    cube2.draw()
-    cube3.t.clear()
-    cube3.draw()
+
+try:
+    while running:
+        cube1.t.clear()
+        cube1.draw()
+        cube2.t.clear()
+        cube2.draw()
+        cube3.t.clear()
+        cube3.draw()
  
-    win.update()
-    cube1.counter += 0.005
-    cube2.counter -= 0.005
-    cube3.counter += 0.007   
+        win.update()
+        cube1.counter += 0.005
+        cube2.counter -= 0.005
+        cube3.counter += 0.007   
+
+except turtle.Terminator:
+    pass
+
+sys.exit()

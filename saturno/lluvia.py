@@ -13,8 +13,9 @@ class Petalos(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.image = pygame.image.load("petaloslilatamañosTRE.jpg")
-        self.image.set_colorkey([0, 0, 0])
+        #self.image = pygame.image.load("petaloslilatamañosTRE.jpg")
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(DEEPPINK)
         self.rect = self.image.get_rect()
 
     def update(self):
@@ -26,8 +27,8 @@ class Petalos(pygame.sprite.Sprite):
 
 
 SCREEN = pygame.display.set_mode([1080, 720])
-IMAGEN_FONDO = pygame.image.load("sahuraagua3.jpg").convert()
-IMAGEN_NOCHE = pygame.image.load("noche.jpg").convert()
+#IMAGEN_FONDO = pygame.image.load("sahuraagua3.jpg").convert()
+#IMAGEN_NOCHE = pygame.image.load("noche.jpg").convert()
 clock = pygame.time.Clock()
 
 ################################ movimientos
@@ -51,9 +52,9 @@ while not done:
 ########################## background 
     
     SCREEN.fill(WHITE)
-    SCREEN.blit(IMAGEN_FONDO, [0, 0])
+    #SCREEN.blit(IMAGEN_FONDO, [0, 0])
     all_sprite_list.draw(SCREEN)
-    SCREEN.blit(IMAGEN_NOCHE, [100, 200])
+    #SCREEN.blit(IMAGEN_NOCHE, [100, 200])
     pygame.display.flip()
     clock.tick(30)
 
